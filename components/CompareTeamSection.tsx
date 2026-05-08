@@ -14,7 +14,7 @@ function CompareStickerCell({
 }: CompareStickerCellProps) {
   if (canGive) {
     return (
-      <div className="relative rounded-lg flex items-center justify-center min-h-[52px] p-1.5 bg-lime/10 border border-lime/50">
+      <div className="relative rounded-lg flex items-center justify-center min-h-[52px] p-1.5 bg-lime/[0.04] border-2 border-lime/60">
         <span className="text-[11px] font-mono font-bold leading-tight text-lime text-center">
           {sticker.id}
         </span>
@@ -27,7 +27,7 @@ function CompareStickerCell({
 
   if (canReceive) {
     return (
-      <div className="relative rounded-lg flex items-center justify-center min-h-[52px] p-1.5 bg-sky-400/10 border border-sky-400/50">
+      <div className="relative rounded-lg flex items-center justify-center min-h-[52px] p-1.5 bg-sky-400/[0.04] border-2 border-sky-400/60">
         <span className="text-[11px] font-mono font-bold leading-tight text-sky-400 text-center">
           {sticker.id}
         </span>
