@@ -15,9 +15,10 @@ type ModalState = { sticker: Sticker; quantity: number } | null;
 
 interface StickerGridProps {
   initialCollection: CollectionEntry[];
+  readOnly?: boolean;
 }
 
-export default function StickerGrid({ initialCollection }: StickerGridProps) {
+export default function StickerGrid({ initialCollection, readOnly = false }: StickerGridProps) {
   const [collection, setCollection] = useState<Map<string, number>>(
     () => new Map(initialCollection.map((e) => [e.stickerId, e.quantity])),
   );
@@ -31,11 +32,12 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
   const [, startTransition] = useTransition();
 
   useEffect(() => {
+    if (readOnly) return;
     localStorage.setItem(
       "collection",
       JSON.stringify([...collection.entries()]),
     );
-  }, [collection]);
+  }, [collection, readOnly]);
 
   const getQty = (id: string) => collection.get(id) ?? 0;
 
@@ -145,10 +147,8 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
                     key={s.id}
                     sticker={s}
                     quantity={getQty(s.id)}
-                    onTap={() => handleTap(s)}
-                    onLongPress={() =>
-                      setModal({ sticker: s, quantity: getQty(s.id) })
-                    }
+                    onTap={readOnly ? () => {} : () => handleTap(s)}
+                    onLongPress={readOnly ? () => {} : () => setModal({ sticker: s, quantity: getQty(s.id) })}
                   />
                 ))}
               </div>
