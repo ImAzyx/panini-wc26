@@ -2,7 +2,7 @@
 import { useState, useTransition, useCallback, useEffect } from "react";
 import StickerCard from "./StickerCard";
 import type { Sticker, CollectionEntry } from "@/types";
-import { STICKERS_BY_TEAM, TEAM_ORDER, STICKERS } from "@/data/stickers";
+import { STICKERS_BY_TEAM, TEAM_ORDER, STICKERS, ALBUM_STICKER_COUNT } from "@/data/stickers";
 import { upsertSticker } from "@/lib/actions/collection";
 import confetti from "canvas-confetti";
 
@@ -65,7 +65,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
   );
 
   const totalOwned = collection.size;
-  const totalPct = Math.round((totalOwned / STICKERS.length) * 100);
+  const totalPct = Math.round((totalOwned / ALBUM_STICKER_COUNT) * 100);
 
   return (
     <div className="space-y-8">
@@ -80,7 +80,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
           </div>
           <p className="font-mono text-text/40 text-sm">
             {totalOwned}
-            <span className="text-text/20">/{STICKERS.length}</span>
+            <span className="text-text/20">/{ALBUM_STICKER_COUNT}</span>
           </p>
         </div>
         <div className="h-1.5 bg-white/[0.05] rounded-full overflow-hidden">

@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { STICKERS, STICKERS_BY_TEAM, TEAM_ORDER } from "@/data/stickers";
+import { STICKERS, STICKERS_BY_TEAM, TEAM_ORDER, ALBUM_STICKER_COUNT } from "@/data/stickers";
 import ProgressBar from "@/components/ProgressBar";
 
 export default async function StatsPage() {
@@ -16,8 +16,8 @@ export default async function StatsPage() {
   const owned = collection.length;
   const duplicates = collection.filter((c) => c.quantity > 1).length;
   const duplicatesPct = owned > 0 ? Math.round((duplicates / owned) * 100) : 0;
-  const missing = STICKERS.length - owned;
-  const totalPct = Math.round((owned / STICKERS.length) * 100);
+  const missing = ALBUM_STICKER_COUNT - owned;
+  const totalPct = Math.round((owned / ALBUM_STICKER_COUNT) * 100);
 
   const teamRows = TEAM_ORDER
     .filter((t) => t !== "Intro" && t !== "FIFA Museum")
@@ -76,7 +76,7 @@ export default async function StatsPage() {
             {totalPct}%
           </p>
         </div>
-        <ProgressBar current={owned} total={STICKERS.length} size="lg" />
+        <ProgressBar current={owned} total={ALBUM_STICKER_COUNT} size="lg" />
       </div>
 
       {/* Per-team – sorted by completion desc */}

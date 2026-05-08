@@ -95,11 +95,22 @@ const FIFA_MUSEUM_STICKERS: Sticker[] = [
   { id: "FWC19", name: "Lev Yachine", team: "FIFA Museum", isFoil: true },
 ];
 
+const COCA_COLA_STICKERS: Sticker[] = Array.from({ length: 12 }, (_, i) => ({
+  id: `CC${i + 1}`,
+  name: `Coca-Cola ${i + 1}`,
+  team: "Coca-Cola",
+  isFoil: false,
+}));
+
 export const STICKERS: Sticker[] = [
   ...INTRO_STICKERS,
   ...generateTeamStickers(),
   ...FIFA_MUSEUM_STICKERS,
+  ...COCA_COLA_STICKERS,
 ];
+
+// Official album count (980) — Coca-Cola stickers are extras, excluded from progress
+export const ALBUM_STICKER_COUNT = STICKERS.length - COCA_COLA_STICKERS.length;
 
 export const STICKER_MAP = new Map<string, Sticker>(
   STICKERS.map((s) => [s.id, s])
@@ -117,4 +128,5 @@ export const TEAM_ORDER = [
   "Intro",
   ...TEAMS.map((t) => t.name),
   "FIFA Museum",
+  "Coca-Cola",
 ];
