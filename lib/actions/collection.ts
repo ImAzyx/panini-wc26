@@ -42,28 +42,48 @@ export async function upsertSticker(stickerId: string, delta: number): Promise<v
   }
 }
 
-export async function bulkUpsertStickers(
-  codes: string[]
-): Promise<{ added: number; invalid: string[] }> {
+export type BulkStickerEntry = { id: string; received: number };
+
+export async function bulkUpsertStickers(codes: string[]): Promise<{
+  newStickers: BulkStickerEntry[];   // not previously owned
+  alreadyOwned: BulkStickerEntry[];  // already had at least 1
+  invalid: string[];
+}> {
   const userId = await requireUser();
   const invalid: string[] = [];
-  const valid: string[] = [];
+  const counts = new Map<string, number>();
 
   for (const code of codes) {
     const trimmed = code.trim().toUpperCase();
-    if (STICKER_MAP.has(trimmed)) valid.push(trimmed);
+    if (STICKER_MAP.has(trimmed)) counts.set(trimmed, (counts.get(trimmed) ?? 0) + 1);
     else if (trimmed) invalid.push(trimmed);
   }
 
-  for (const stickerId of valid) {
+  const validIds = [...counts.keys()];
+
+  const existing = await prisma.collection.findMany({
+    where: { userId, stickerId: { in: validIds } },
+    select: { stickerId: true },
+  });
+  const existingSet = new Set(existing.map((e) => e.stickerId));
+
+  const newStickers: BulkStickerEntry[] = [];
+  const alreadyOwned: BulkStickerEntry[] = [];
+
+  for (const [id, received] of counts) {
+    if (existingSet.has(id)) alreadyOwned.push({ id, received });
+    else newStickers.push({ id, received });
+  }
+
+  for (const [stickerId, received] of counts) {
     await prisma.collection.upsert({
       where: { userId_stickerId: { userId, stickerId } },
-      create: { userId, stickerId, quantity: 1 },
-      update: { quantity: { increment: 1 } },
+      create: { userId, stickerId, quantity: received },
+      update: { quantity: { increment: received } },
     });
   }
 
-  return { added: valid.length, invalid };
+  return { newStickers, alreadyOwned, invalid };
 }
 
 export async function getUserCollectionById(
