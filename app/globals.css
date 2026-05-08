@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #060911;
+  --color-surface: #0C1422;
+  --color-elevated: #131D30;
+  --color-lime: #A8FF3E;
+  --color-gold: #F0C040;
+  --color-red: #FF3D5A;
+  --color-cream: #F8F3E8;
+  --color-text: #EDF0FF;
+  --font-family-title: var(--font-oswald);
+  --font-family-mono: var(--font-space-mono);
+  --font-family-body: var(--font-dm-sans);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background-color: var(--color-void);
+    background-image:
+      linear-gradient(rgba(168, 255, 62, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168, 255, 62, 0.018) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(168, 255, 62, 0.18); }
+  50% { box-shadow: 0 0 14px rgba(168, 255, 62, 0.48); }
+}
+
+.foil-shimmer {
+  background: linear-gradient(
+    108deg,
+    transparent 18%,
+    rgba(200, 80, 220, 0.45) 30%,
+    rgba(80, 180, 255, 0.45) 42%,
+    rgba(120, 255, 150, 0.42) 54%,
+    rgba(255, 220, 80, 0.45) 66%,
+    transparent 78%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+.sticker-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
