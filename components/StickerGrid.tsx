@@ -43,6 +43,7 @@ export default function StickerGrid({ initialCollection, readOnly = false }: Sti
 
   const handleTap = useCallback(
     (sticker: Sticker) => {
+      if (readOnly) return;
       const current = collection.get(sticker.id) ?? 0;
       const newQty = current === 0 ? 1 : current === 1 ? 2 : 0;
       const delta = newQty - current;

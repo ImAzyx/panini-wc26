@@ -5,6 +5,7 @@ import ProgressBar from "@/components/ProgressBar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STICKERS } from "@/data/stickers";
+import { auth } from "@/lib/auth";
 
 export default async function MemberCollectionPage({
   params,
@@ -13,10 +14,12 @@ export default async function MemberCollectionPage({
 }) {
   const { groupId, memberId } = await params;
 
-  const [group, collection] = await Promise.all([
+  const [group, collection, session] = await Promise.all([
     getGroupWithMembers(groupId),
     getUserCollectionById(memberId),
+    auth(),
   ]);
+  const currentUserId = session?.user?.id;
 
   const member = group.memberStats.find((m) => m.userId === memberId);
   if (!member) notFound();
@@ -52,13 +55,15 @@ export default async function MemberCollectionPage({
         </div>
       </div>
 
-      <Link
-        href={`/groups/${groupId}/compare/${memberId}`}
-        className="flex items-center justify-between w-full bg-sky-400/8 border border-sky-400/20 hover:bg-sky-400/12 hover:border-sky-400/35 text-sky-400 font-title font-bold py-3.5 rounded-xl mb-6 px-5 transition-all text-sm uppercase"
-      >
-        <span>Comparer avec ma collection</span>
-        <span className="text-sky-400/50">→</span>
-      </Link>
+      {memberId !== currentUserId && (
+        <Link
+          href={`/groups/${groupId}/compare/${memberId}`}
+          className="flex items-center justify-between w-full bg-sky-400/8 border border-sky-400/20 hover:bg-sky-400/12 hover:border-sky-400/35 text-sky-400 font-title font-bold py-3.5 rounded-xl mb-6 px-5 transition-all text-sm uppercase"
+        >
+          <span>Comparer avec ma collection</span>
+          <span className="text-sky-400/50">→</span>
+        </Link>
+      )}
 
       <StickerGrid initialCollection={collection} readOnly />
     </main>
