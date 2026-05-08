@@ -15,6 +15,9 @@ function StickerCell({ sticker, quantity, highlighted, highlightColor }: CellPro
         <span className="text-[11px] font-mono font-bold leading-tight text-sky-400 text-center">
           {sticker.id}
         </span>
+        <span className="absolute -top-1.5 -right-1.5 bg-sky-400 text-void text-[8px] font-mono font-bold rounded-full w-[16px] h-[16px] flex items-center justify-center leading-none">
+          ←
+        </span>
       </div>
     );
   }
@@ -25,11 +28,9 @@ function StickerCell({ sticker, quantity, highlighted, highlightColor }: CellPro
         <span className="text-[11px] font-mono font-bold leading-tight text-lime text-center">
           {sticker.id}
         </span>
-        {quantity >= 2 && (
-          <span className="absolute -top-1.5 -right-1.5 bg-lime text-void text-[9px] font-mono font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center z-20 leading-none">
-            {quantity}
-          </span>
-        )}
+        <span className="absolute -top-1.5 -right-1.5 bg-lime text-void text-[8px] font-mono font-bold rounded-full w-[16px] h-[16px] flex items-center justify-center leading-none">
+          →
+        </span>
       </div>
     );
   }
