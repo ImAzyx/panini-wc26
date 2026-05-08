@@ -15,8 +15,19 @@ export default async function StatsPage() {
   const collMap = new Map(collection.map((c) => [c.stickerId, c.quantity]));
   const owned = collection.length;
   const duplicates = collection.filter((c) => c.quantity > 1).length;
+  const duplicatesPct = owned > 0 ? Math.round((duplicates / owned) * 100) : 0;
   const missing = STICKERS.length - owned;
   const totalPct = Math.round((owned / STICKERS.length) * 100);
+
+  const teamRows = TEAM_ORDER
+    .filter((t) => t !== "Intro" && t !== "FIFA Museum")
+    .map((team) => {
+      const stickers = STICKERS_BY_TEAM[team] ?? [];
+      const teamOwned = stickers.filter((s) => collMap.has(s.id)).length;
+      const pct = stickers.length > 0 ? teamOwned / stickers.length : 0;
+      return { team, teamOwned, total: stickers.length, pct };
+    })
+    .sort((a, b) => b.pct - a.pct);
 
   return (
     <main className="max-w-xl mx-auto px-4 py-5">
@@ -35,8 +46,11 @@ export default async function StatsPage() {
           </div>
         </div>
         <div className="bg-surface border border-white/[0.07] rounded-xl p-4 text-center">
-          <div className="font-mono font-bold text-3xl text-gold leading-none mb-1.5 tabular-nums">
+          <div className="font-mono font-bold text-3xl text-gold leading-none mb-1 tabular-nums">
             {duplicates}
+          </div>
+          <div className="font-mono text-xs text-gold/50 tabular-nums mb-1">
+            {duplicatesPct}%
           </div>
           <div className="text-[9px] font-title font-semibold tracking-widest uppercase text-text/35">
             Doubles
@@ -65,7 +79,7 @@ export default async function StatsPage() {
         <ProgressBar current={owned} total={STICKERS.length} size="lg" />
       </div>
 
-      {/* Per-team */}
+      {/* Per-team – sorted by completion desc */}
       <div className="flex items-center gap-2.5 mb-3">
         <div className="w-0.5 h-5 rounded-full bg-white/15" />
         <h2 className="text-[10px] font-title font-semibold tracking-widest uppercase text-text/35">
@@ -73,20 +87,14 @@ export default async function StatsPage() {
         </h2>
       </div>
       <div className="space-y-1.5">
-        {TEAM_ORDER.filter(
-          (t) => t !== "Intro" && t !== "Coca-Cola" && t !== "FIFA Museum"
-        ).map((team) => {
-          const stickers = STICKERS_BY_TEAM[team] ?? [];
-          const teamOwned = stickers.filter((s) => collMap.has(s.id)).length;
-          return (
-            <div
-              key={team}
-              className="bg-surface border border-white/[0.05] rounded-lg px-3 py-2"
-            >
-              <ProgressBar current={teamOwned} total={stickers.length} label={team} size="sm" />
-            </div>
-          );
-        })}
+        {teamRows.map(({ team, teamOwned, total }) => (
+          <div
+            key={team}
+            className="bg-surface border border-white/[0.05] rounded-lg px-3 py-2"
+          >
+            <ProgressBar current={teamOwned} total={total} label={team} size="sm" />
+          </div>
+        ))}
       </div>
     </main>
   );

@@ -48,10 +48,10 @@ export default function StickerCard({ sticker, quantity, onTap, onLongPress }: S
   if (state === "missing") {
     return (
       <div
-        className="relative rounded flex flex-col items-center justify-center min-h-[44px] min-w-[44px] p-1.5 cursor-pointer select-none active:scale-95 transition-transform border border-dashed border-white/[0.09]"
+        className="relative rounded-lg flex items-center justify-center min-h-[52px] p-1.5 cursor-pointer select-none active:scale-95 transition-transform border border-dashed border-white/[0.15]"
         {...handlers}
       >
-        <span className="text-[9px] font-mono text-white/12 font-bold leading-tight">{sticker.id}</span>
+        <span className="text-[11px] font-mono text-white/35 font-bold leading-tight text-center">{sticker.id}</span>
       </div>
     );
   }
@@ -59,13 +59,13 @@ export default function StickerCard({ sticker, quantity, onTap, onLongPress }: S
   if (state === "owned") {
     return (
       <div
-        className={`relative rounded flex flex-col items-center justify-center min-h-[44px] min-w-[44px] p-1.5 cursor-pointer select-none active:scale-95 transition-transform bg-cream border border-lime/35 sticker-glow overflow-hidden`}
+        className="relative rounded-lg flex items-center justify-center min-h-[52px] p-1.5 cursor-pointer select-none active:scale-95 transition-transform bg-cream border border-lime/40 sticker-glow overflow-hidden"
         {...handlers}
       >
         {sticker.isFoil && (
           <div className="foil-shimmer absolute inset-0 pointer-events-none z-10" />
         )}
-        <span className="text-[9px] font-mono font-bold leading-tight text-void/70 relative z-20 select-none">
+        <span className="text-[11px] font-mono font-bold leading-tight text-void relative z-20 select-none text-center">
           {sticker.id}
         </span>
       </div>
@@ -74,13 +74,13 @@ export default function StickerCard({ sticker, quantity, onTap, onLongPress }: S
 
   return (
     <div
-      className="relative rounded flex flex-col items-center justify-center min-h-[44px] min-w-[44px] p-1.5 cursor-pointer select-none active:scale-95 transition-transform bg-gold/10 border border-gold/40"
+      className="relative rounded-lg flex items-center justify-center min-h-[52px] p-1.5 cursor-pointer select-none active:scale-95 transition-transform bg-gold/15 border border-gold/50"
       {...handlers}
     >
-      <span className="text-[9px] font-mono font-bold leading-tight text-gold relative z-10 select-none">
+      <span className="text-[11px] font-mono font-bold leading-tight text-gold relative z-10 select-none text-center">
         {sticker.id}
       </span>
-      <span className="absolute -top-1.5 -right-1.5 bg-gold text-void text-[8px] font-mono font-bold rounded-full w-4 h-4 flex items-center justify-center z-20 leading-none">
+      <span className="absolute -top-1.5 -right-1.5 bg-gold text-void text-[9px] font-mono font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center z-20 leading-none">
         {quantity}
       </span>
     </div>
