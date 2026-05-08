@@ -1,5 +1,6 @@
 import { getTradeMatrix } from "@/lib/actions/trades";
 import { getGroupWithMembers } from "@/lib/actions/groups";
+import { getCollection, getUserCollectionById } from "@/lib/actions/collection";
 import { auth } from "@/lib/auth";
 import CompareClient from "@/components/CompareClient";
 import { notFound } from "next/navigation";
@@ -14,9 +15,11 @@ export default async function ComparePage({
   const session = await auth();
   const currentUserId = session!.user!.id!;
 
-  const [pairs, group] = await Promise.all([
+  const [pairs, group, myCollection, memberCollection] = await Promise.all([
     getTradeMatrix(groupId),
     getGroupWithMembers(groupId),
+    getCollection(),
+    getUserCollectionById(memberId),
   ]);
 
   const member = group.memberStats.find((m) => m.userId === memberId);
@@ -47,6 +50,8 @@ export default async function ComparePage({
       groupName={group.name}
       myGive={myGive}
       myReceive={myReceive}
+      myCollection={myCollection}
+      memberCollection={memberCollection}
     />
   );
 }

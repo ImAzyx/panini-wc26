@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import type { Sticker } from "@/types";
+import type { Sticker, CollectionEntry } from "@/types";
 import { TEAM_ORDER } from "@/data/stickers";
 import CompareTeamSection from "./CompareTeamSection";
+import CompareGridPanel from "./CompareGridPanel";
 
 interface Props {
   memberName: string;
@@ -12,6 +13,8 @@ interface Props {
   groupName: string;
   myGive: Sticker[];
   myReceive: Sticker[];
+  myCollection: CollectionEntry[];
+  memberCollection: CollectionEntry[];
 }
 
 export default function CompareClient({
@@ -21,11 +24,16 @@ export default function CompareClient({
   groupName,
   myGive,
   myReceive,
+  myCollection,
+  memberCollection,
 }: Props) {
   const [showAll, setShowAll] = useState(false);
 
   const canGiveIds = new Set(myGive.map((s) => s.id));
   const canReceiveIds = new Set(myReceive.map((s) => s.id));
+
+  const myCollectionMap = new Map(myCollection.map((e) => [e.stickerId, e.quantity]));
+  const memberCollectionMap = new Map(memberCollection.map((e) => [e.stickerId, e.quantity]));
 
   const teamsWithExchanges = new Set([
     ...myGive.map((s) => s.team),
@@ -46,17 +54,11 @@ export default function CompareClient({
 
   const breadcrumb = (
     <p className="text-[9px] font-title font-semibold uppercase text-text/30 mb-0.5">
-      <Link
-        href={`/groups/${groupId}`}
-        className="hover:text-text/60 transition-colors"
-      >
+      <Link href={`/groups/${groupId}`} className="hover:text-text/60 transition-colors">
         {groupName}
       </Link>
       {" / "}
-      <Link
-        href={`/groups/${groupId}/trades`}
-        className="hover:text-text/60 transition-colors"
-      >
+      <Link href={`/groups/${groupId}/trades`} className="hover:text-text/60 transition-colors">
         Échanges
       </Link>
       {" / "}
@@ -89,7 +91,7 @@ export default function CompareClient({
   }
 
   return (
-    <main className="max-w-xl mx-auto px-4 py-5">
+    <main className="max-w-xl md:max-w-6xl mx-auto px-4 md:px-6 py-5">
       <div className="mb-6">
         {breadcrumb}
         <h1 className="font-title font-bold text-xl text-text">
@@ -116,7 +118,8 @@ export default function CompareClient({
         </div>
       </div>
 
-      <div className="space-y-8">
+      {/* Mobile — vue actuelle */}
+      <div className="md:hidden space-y-8">
         {teamsToShow.map((team) => (
           <CompareTeamSection
             key={team}
@@ -125,16 +128,73 @@ export default function CompareClient({
             canReceiveIds={canReceiveIds}
           />
         ))}
+        {!showAll && teamsWithExchanges.size < TEAM_ORDER.length && (
+          <button
+            onClick={() => setShowAll(true)}
+            className="mt-2 w-full text-[10px] font-title font-semibold uppercase text-text/25 hover:text-text/50 transition-colors py-3"
+          >
+            Voir toutes les équipes
+          </button>
+        )}
       </div>
 
-      {!showAll && teamsWithExchanges.size < TEAM_ORDER.length && (
-        <button
-          onClick={() => setShowAll(true)}
-          className="mt-8 w-full text-[10px] font-title font-semibold uppercase text-text/25 hover:text-text/50 transition-colors py-3"
-        >
-          Voir toutes les équipes
-        </button>
-      )}
+      {/* Desktop — côte à côte */}
+      <div className="hidden md:block">
+        <div className="grid grid-cols-2 gap-6 mb-4">
+          <p className="text-[9px] font-title font-semibold uppercase text-sky-400/60">
+            Ma collection
+            <span className="text-text/25 ml-2">cases bleues = à recevoir</span>
+          </p>
+          <p className="text-[9px] font-title font-semibold uppercase text-lime/60">
+            {memberName}
+            <span className="text-text/25 ml-2">cases vertes = à donner</span>
+          </p>
+        </div>
+
+        <div className="space-y-8">
+          {teamsToShow.map((team) => {
+            const count = getTeamExchangeCount(team);
+            return (
+              <section key={team}>
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <div className="w-0.5 h-5 rounded-full shrink-0 bg-white/15" />
+                  <h2 className="font-title font-bold text-xs text-text/60 uppercase flex-1">
+                    {team}
+                  </h2>
+                  {count > 0 && (
+                    <span className="font-mono text-[10px] text-text/35">
+                      {count} échange{count > 1 ? "s" : ""}
+                    </span>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <CompareGridPanel
+                    team={team}
+                    collectionMap={myCollectionMap}
+                    highlightIds={canReceiveIds}
+                    highlightColor="sky"
+                  />
+                  <CompareGridPanel
+                    team={team}
+                    collectionMap={memberCollectionMap}
+                    highlightIds={canGiveIds}
+                    highlightColor="lime"
+                  />
+                </div>
+              </section>
+            );
+          })}
+        </div>
+
+        {!showAll && teamsWithExchanges.size < TEAM_ORDER.length && (
+          <button
+            onClick={() => setShowAll(true)}
+            className="mt-8 w-full text-[10px] font-title font-semibold uppercase text-text/25 hover:text-text/50 transition-colors py-3"
+          >
+            Voir toutes les équipes
+          </button>
+        )}
+      </div>
     </main>
   );
 }
