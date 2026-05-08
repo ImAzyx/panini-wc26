@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Oswald, Space_Mono, DM_Sans } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
 
 const oswald = Oswald({
@@ -23,7 +24,6 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Panini WC26",
   description: "Suivez votre collection Panini FIFA WC 2026",
-  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -42,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${oswald.variable} ${spaceMono.variable} ${dmSans.variable}`}>
       <body className="bg-void text-text font-body min-h-screen">
+        <ServiceWorkerRegistration />
         <Navbar />
         <div className="md:pt-16 pb-20 md:pb-0">
           {children}
