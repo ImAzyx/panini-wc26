@@ -25,7 +25,7 @@ export default async function MemberCollectionPage({
   if (!member) notFound();
 
   return (
-    <main className="max-w-xl mx-auto px-4 py-5">
+    <main className="max-w-6xl mx-auto px-3 py-5">
       <div className="mb-6">
         <p className="text-[9px] font-title font-semibold uppercase text-text/30 mb-0.5">
           <Link
