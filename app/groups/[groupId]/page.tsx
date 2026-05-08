@@ -53,9 +53,12 @@ export default async function GroupPage({
             className="border border-white/[0.07] rounded-xl p-4 bg-surface"
           >
             <div className="flex justify-between items-center mb-2.5">
-              <span className="font-title font-bold text-sm text-text">
+              <Link
+                href={`/groups/${group.id}/members/${m.userId}`}
+                className="font-title font-bold text-sm text-text hover:text-lime transition-colors"
+              >
                 {m.username}
-              </span>
+              </Link>
               <span className="font-mono text-[10px] text-text/32">
                 {m.collectionCount}
                 <span className="text-text/18">/{STICKERS.length}</span>
