@@ -22,10 +22,10 @@ export default function TradesClient({ initialPairs }: Props) {
   return (
     <main className="max-w-xl mx-auto px-4 py-5">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="font-title font-bold text-2xl tracking-widest text-text uppercase">
+        <h1 className="font-title font-bold text-2xl  text-text uppercase">
           Échanges
         </h1>
-        <span className="text-[9px] font-mono text-text/22 border border-white/[0.06] rounded-full px-2.5 py-1 tracking-wide">
+        <span className="text-[9px] font-mono text-text/22 border border-white/[0.06] rounded-full px-2.5 py-1 ">
           refresh ~30s
         </span>
       </div>

@@ -11,7 +11,7 @@ export default async function RegisterPage({
   return (
     <form action={registerUser} className="space-y-4">
       <div>
-        <label className="block text-[9px] font-title font-semibold tracking-widest uppercase text-text/35 mb-2">
+        <label className="block text-[9px] font-title font-semibold  uppercase text-text/35 mb-2">
           Nom d&apos;utilisateur
         </label>
         <input
@@ -23,7 +23,7 @@ export default async function RegisterPage({
         />
       </div>
       <div>
-        <label className="block text-[9px] font-title font-semibold tracking-widest uppercase text-text/35 mb-2">
+        <label className="block text-[9px] font-title font-semibold  uppercase text-text/35 mb-2">
           Email
         </label>
         <input
@@ -34,7 +34,7 @@ export default async function RegisterPage({
         />
       </div>
       <div>
-        <label className="block text-[9px] font-title font-semibold tracking-widest uppercase text-text/35 mb-2">
+        <label className="block text-[9px] font-title font-semibold  uppercase text-text/35 mb-2">
           Mot de passe
         </label>
         <input
@@ -52,13 +52,16 @@ export default async function RegisterPage({
       )}
       <button
         type="submit"
-        className="w-full bg-lime text-void font-title font-bold py-3.5 rounded-xl text-sm tracking-widest uppercase hover:opacity-90 transition-opacity"
+        className="w-full bg-lime text-void font-title font-bold py-3.5 rounded-xl text-sm  uppercase hover:opacity-90 transition-opacity"
       >
         Créer mon compte
       </button>
-      <p className="text-center text-[10px] font-title tracking-widest uppercase text-text/28">
+      <p className="text-center text-[10px] font-title  uppercase text-text/28">
         Déjà un compte ?{" "}
-        <Link href="/auth/login" className="text-lime/65 hover:text-lime transition-colors">
+        <Link
+          href="/auth/login"
+          className="text-lime/65 hover:text-lime transition-colors"
+        >
           Se connecter
         </Link>
       </p>

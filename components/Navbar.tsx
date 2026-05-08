@@ -7,7 +7,13 @@ const NAV_ITEMS = [
     href: "/collection",
     label: "Collection",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="w-5 h-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.75}
+        className="w-5 h-5"
+      >
         <rect x="3" y="3" width="7" height="9" rx="1.5" />
         <rect x="14" y="3" width="7" height="5" rx="1.5" />
         <rect x="14" y="12" width="7" height="9" rx="1.5" />
@@ -19,7 +25,13 @@ const NAV_ITEMS = [
     href: "/groups",
     label: "Groupes",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="w-5 h-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.75}
+        className="w-5 h-5"
+      >
         <circle cx="8.5" cy="7.5" r="3" />
         <circle cx="15.5" cy="7.5" r="3" />
         <path d="M2 20c0-3 2.91-5.5 6.5-5.5" />
@@ -31,7 +43,13 @@ const NAV_ITEMS = [
     href: "/stats",
     label: "Stats",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="w-5 h-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.75}
+        className="w-5 h-5"
+      >
         <path d="M3 20V13M9 20V7M15 20V10M21 20V3" strokeLinecap="round" />
       </svg>
     ),
@@ -40,7 +58,13 @@ const NAV_ITEMS = [
     href: "/profile",
     label: "Profil",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="w-5 h-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.75}
+        className="w-5 h-5"
+      >
         <circle cx="12" cy="8" r="4" />
         <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" strokeLinecap="round" />
       </svg>
@@ -59,9 +83,11 @@ export default function Navbar() {
       <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-void/96 backdrop-blur-sm border-b border-white/[0.06] px-8 h-16 items-center justify-between">
         <Link href="/collection" className="flex items-center gap-2.5 group">
           <div className="w-7 h-7 bg-lime rounded-md flex items-center justify-center shrink-0">
-            <span className="font-title font-bold text-void text-sm leading-none">P</span>
+            <span className="font-title font-bold text-void text-sm leading-none">
+              P
+            </span>
           </div>
-          <span className="font-title font-bold text-text text-lg tracking-[0.12em] uppercase">
+          <span className="font-title font-bold text-text text-lg uppercase">
             Panini <span className="text-lime">WC26</span>
           </span>
         </Link>
@@ -72,7 +98,7 @@ export default function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`relative px-4 py-2 text-sm font-title font-semibold tracking-widest uppercase transition-colors block ${
+                  className={`relative px-4 py-2 text-sm font-title font-semibold  uppercase transition-colors block ${
                     active ? "text-lime" : "text-text/35 hover:text-text/70"
                   }`}
                 >
@@ -104,7 +130,7 @@ export default function Navbar() {
                   }`}
                 >
                   {item.icon}
-                  <span className="text-[9px] font-title font-semibold tracking-widest uppercase leading-none">
+                  <span className="text-[9px] font-title font-semibold  uppercase leading-none">
                     {item.label}
                   </span>
                 </Link>

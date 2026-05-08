@@ -736,7 +736,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <main className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        <h1 className="font-title text-4xl text-gold mb-8 text-center tracking-wide">
+        <h1 className="font-title text-4xl text-gold mb-8 text-center ">
           PANINI WC26
         </h1>
         {children}
@@ -1104,7 +1104,7 @@ export default function Navbar() {
     <>
       {/* Desktop top nav */}
       <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-pitch/90 backdrop-blur border-b border-white/10 px-6 h-14 items-center justify-between">
-        <span className="font-title text-gold text-xl tracking-widest">PANINI WC26</span>
+        <span className="font-title text-gold text-xl ">PANINI WC26</span>
         <ul className="flex gap-6">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
@@ -1383,7 +1383,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
         return (
           <section key={team}>
             <div className="flex items-center justify-between mb-2 px-1">
-              <h2 className="font-title text-sm tracking-widest text-gold uppercase">{team}</h2>
+              <h2 className="font-title text-sm  text-gold uppercase">{team}</h2>
               <span className="text-xs text-white/50">{teamOwned}/{stickers.length}</span>
             </div>
             <div className="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-10 gap-1.5">
@@ -1472,7 +1472,7 @@ export default async function CollectionPage() {
   return (
     <main className="max-w-4xl mx-auto px-3 py-4">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="font-title text-2xl text-gold tracking-widest">MA COLLECTION</h1>
+        <h1 className="font-title text-2xl text-gold ">MA COLLECTION</h1>
       </div>
       <BulkInput />
       <div className="mt-4">
@@ -1698,7 +1698,7 @@ export default function GroupCard({ id, name, inviteCode, memberCount }: GroupCa
     <Link href={`/groups/${id}`}>
       <div className="border border-white/20 rounded-xl p-4 hover:border-gold/50 transition-colors">
         <div className="flex justify-between items-start mb-3">
-          <h3 className="font-title text-lg text-gold tracking-wide">{name}</h3>
+          <h3 className="font-title text-lg text-gold ">{name}</h3>
           <span className="text-xs text-white/40 bg-white/5 px-2 py-1 rounded font-mono">
             {inviteCode}
           </span>
@@ -1725,7 +1725,7 @@ export default async function GroupsPage() {
   return (
     <main className="max-w-xl mx-auto px-4 py-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="font-title text-2xl text-gold tracking-widest">MES GROUPES</h1>
+        <h1 className="font-title text-2xl text-gold ">MES GROUPES</h1>
         <Link
           href="/groups/join"
           className="text-sm border border-gold/40 text-gold px-3 py-2 rounded-lg"
@@ -1803,7 +1803,7 @@ async function joinAction(formData: FormData) {
 export default function JoinGroupPage({ searchParams }: { searchParams: { error?: string } }) {
   return (
     <main className="max-w-sm mx-auto px-4 py-16">
-      <h1 className="font-title text-2xl text-gold mb-8 text-center tracking-widest">
+      <h1 className="font-title text-2xl text-gold mb-8 text-center ">
         REJOINDRE UN GROUPE
       </h1>
       <form action={joinAction} className="space-y-4">
@@ -1812,7 +1812,7 @@ export default function JoinGroupPage({ searchParams }: { searchParams: { error?
           placeholder="Code d'invitation (6 caractères)"
           maxLength={6}
           required
-          className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-off-white uppercase tracking-widest text-center text-lg focus:outline-none focus:border-gold"
+          className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-off-white uppercase  text-center text-lg focus:outline-none focus:border-gold"
         />
         {searchParams.error && (
           <p className="text-red-400 text-sm text-center">Code invalide.</p>
@@ -1842,7 +1842,7 @@ export default async function GroupPage({ params }: { params: { groupId: string 
   return (
     <main className="max-w-xl mx-auto px-4 py-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="font-title text-xl text-gold tracking-widest">{group.name}</h1>
+        <h1 className="font-title text-xl text-gold ">{group.name}</h1>
         <span className="text-xs text-white/40 bg-white/5 px-2 py-1 rounded font-mono">
           {group.inviteCode}
         </span>
@@ -1855,7 +1855,7 @@ export default async function GroupPage({ params }: { params: { groupId: string 
         Voir les échanges possibles →
       </Link>
 
-      <h2 className="text-sm text-white/50 uppercase tracking-widest mb-3">Membres</h2>
+      <h2 className="text-sm text-white/50 uppercase  mb-3">Membres</h2>
       <div className="space-y-3">
         {group.memberStats.map((m) => (
           <div key={m.userId} className="border border-white/10 rounded-xl p-4">
@@ -2022,7 +2022,7 @@ export default function TradeDetail({ pair, onClose }: TradeDetailProps) {
 
         <div className="grid grid-cols-2 gap-4 mb-5">
           <div>
-            <h3 className="text-xs text-white/50 uppercase tracking-wider mb-2">
+            <h3 className="text-xs text-white/50 uppercase r mb-2">
               {pair.userAName} donne ({pair.canGive.length})
             </h3>
             <div className="space-y-1">
@@ -2039,7 +2039,7 @@ export default function TradeDetail({ pair, onClose }: TradeDetailProps) {
             </div>
           </div>
           <div>
-            <h3 className="text-xs text-white/50 uppercase tracking-wider mb-2">
+            <h3 className="text-xs text-white/50 uppercase r mb-2">
               {pair.userBName} donne ({pair.canReceive.length})
             </h3>
             <div className="space-y-1">
@@ -2167,7 +2167,7 @@ export default function TradesClient({ groupId, initialPairs }: Props) {
 
   return (
     <main className="max-w-xl mx-auto px-4 py-6">
-      <h1 className="font-title text-2xl text-gold tracking-widest mb-6">ÉCHANGES POSSIBLES</h1>
+      <h1 className="font-title text-2xl text-gold  mb-6">ÉCHANGES POSSIBLES</h1>
       <TradeMatrix pairs={initialPairs} />
     </main>
   );
@@ -2214,7 +2214,7 @@ export default async function StatsPage() {
 
   return (
     <main className="max-w-xl mx-auto px-4 py-6">
-      <h1 className="font-title text-2xl text-gold tracking-widest mb-6">STATISTIQUES</h1>
+      <h1 className="font-title text-2xl text-gold  mb-6">STATISTIQUES</h1>
 
       <div className="grid grid-cols-3 gap-3 mb-6">
         {[
@@ -2231,7 +2231,7 @@ export default async function StatsPage() {
 
       <ProgressBar current={owned} total={STICKERS.length} label="Total" size="lg" />
 
-      <h2 className="text-sm text-white/50 uppercase tracking-widest mt-6 mb-3">Par équipe</h2>
+      <h2 className="text-sm text-white/50 uppercase  mt-6 mb-3">Par équipe</h2>
       <div className="space-y-2">
         {TEAM_ORDER.filter((t) => t !== "Intro" && t !== "Coca-Cola" && t !== "FIFA Museum").map(
           (team) => {
@@ -2302,7 +2302,7 @@ export default async function ProfilePage({
 
   return (
     <main className="max-w-sm mx-auto px-4 py-8">
-      <h1 className="font-title text-2xl text-gold tracking-widest mb-6">PROFIL</h1>
+      <h1 className="font-title text-2xl text-gold  mb-6">PROFIL</h1>
 
       <form action={updateUsername} className="space-y-4 mb-8">
         <div>

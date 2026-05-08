@@ -2,7 +2,12 @@
 import { useState, useTransition, useCallback, useEffect } from "react";
 import StickerCard from "./StickerCard";
 import type { Sticker, CollectionEntry } from "@/types";
-import { STICKERS_BY_TEAM, TEAM_ORDER, STICKERS, ALBUM_STICKER_COUNT } from "@/data/stickers";
+import {
+  STICKERS_BY_TEAM,
+  TEAM_ORDER,
+  STICKERS,
+  ALBUM_STICKER_COUNT,
+} from "@/data/stickers";
 import { upsertSticker } from "@/lib/actions/collection";
 import confetti from "canvas-confetti";
 
@@ -14,17 +19,22 @@ interface StickerGridProps {
 
 export default function StickerGrid({ initialCollection }: StickerGridProps) {
   const [collection, setCollection] = useState<Map<string, number>>(
-    () => new Map(initialCollection.map((e) => [e.stickerId, e.quantity]))
+    () => new Map(initialCollection.map((e) => [e.stickerId, e.quantity])),
   );
 
   useEffect(() => {
-    setCollection(new Map(initialCollection.map((e) => [e.stickerId, e.quantity])));
+    setCollection(
+      new Map(initialCollection.map((e) => [e.stickerId, e.quantity])),
+    );
   }, [initialCollection]);
   const [modal, setModal] = useState<ModalState>(null);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
-    localStorage.setItem("collection", JSON.stringify([...collection.entries()]));
+    localStorage.setItem(
+      "collection",
+      JSON.stringify([...collection.entries()]),
+    );
   }, [collection]);
 
   const getQty = (id: string) => collection.get(id) ?? 0;
@@ -45,7 +55,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
       if (newQty > 0) {
         const teamStickers = STICKERS_BY_TEAM[sticker.team] ?? [];
         const allOwned = teamStickers.every((s) =>
-          s.id === sticker.id ? newQty > 0 : (collection.get(s.id) ?? 0) > 0
+          s.id === sticker.id ? newQty > 0 : (collection.get(s.id) ?? 0) > 0,
         );
         if (allOwned && teamStickers.length > 1) {
           confetti({
@@ -61,7 +71,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
         upsertSticker(sticker.id, delta);
       });
     },
-    [collection]
+    [collection],
   );
 
   const totalOwned = collection.size;
@@ -73,10 +83,12 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
       <div className="relative overflow-hidden rounded-2xl bg-surface border border-white/[0.06] p-5">
         <div className="flex justify-between items-end mb-3">
           <div>
-            <p className="text-[10px] font-title font-semibold tracking-widest text-text/35 uppercase mb-1">
+            <p className="text-[10px] font-title font-semibold  text-text/35 uppercase mb-1">
               Progression totale
             </p>
-            <p className="font-mono font-bold text-4xl text-lime leading-none">{totalPct}%</p>
+            <p className="font-mono font-bold text-4xl text-lime leading-none">
+              {totalPct}%
+            </p>
           </div>
           <p className="font-mono text-text/40 text-sm">
             {totalOwned}
@@ -86,52 +98,63 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
         <div className="h-1.5 bg-white/[0.05] rounded-full overflow-hidden">
           <div
             className="h-full bg-lime rounded-full transition-all duration-700"
-            style={{ width: `${totalPct}%`, boxShadow: "0 0 10px rgba(168,255,62,0.6)" }}
+            style={{
+              width: `${totalPct}%`,
+              boxShadow: "0 0 10px rgba(168,255,62,0.6)",
+            }}
           />
         </div>
       </div>
 
       {/* Team sections – 2 columns on desktop */}
       <div className="md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-8 md:items-start space-y-8 md:space-y-0">
-      {TEAM_ORDER.map((team) => {
-        const stickers = STICKERS_BY_TEAM[team];
-        if (!stickers?.length) return null;
-        const teamOwned = stickers.filter((s) => getQty(s.id) > 0).length;
-        const complete = teamOwned === stickers.length;
-        const pct = Math.round((teamOwned / stickers.length) * 100);
+        {TEAM_ORDER.map((team) => {
+          const stickers = STICKERS_BY_TEAM[team];
+          if (!stickers?.length) return null;
+          const teamOwned = stickers.filter((s) => getQty(s.id) > 0).length;
+          const complete = teamOwned === stickers.length;
+          const pct = Math.round((teamOwned / stickers.length) * 100);
 
-        return (
-          <section key={team}>
-            <div className="flex items-center gap-2.5 mb-2.5">
-              <div className={`w-0.5 h-5 rounded-full shrink-0 ${complete ? "bg-lime" : "bg-white/15"}`} />
-              <h2 className="font-title font-bold text-xs tracking-widest text-text/60 uppercase flex-1">
-                {team}
-              </h2>
-              {complete && (
-                <span className="text-lime text-[9px] font-mono font-bold tracking-widest">✓ COMPLET</span>
-              )}
-              <span className="font-mono text-[10px] text-text/25">{teamOwned}/{stickers.length}</span>
-              <div className="w-14 h-0.5 bg-white/[0.05] rounded-full overflow-hidden shrink-0">
+          return (
+            <section key={team}>
+              <div className="flex items-center gap-2.5 mb-2.5">
                 <div
-                  className={`h-full rounded-full transition-all duration-500 ${complete ? "bg-lime" : "bg-gold/50"}`}
-                  style={{ width: `${pct}%` }}
+                  className={`w-0.5 h-5 rounded-full shrink-0 ${complete ? "bg-lime" : "bg-white/15"}`}
                 />
+                <h2 className="font-title font-bold text-xs  text-text/60 uppercase flex-1">
+                  {team}
+                </h2>
+                {complete && (
+                  <span className="text-lime text-[9px] font-mono font-bold ">
+                    ✓ COMPLET
+                  </span>
+                )}
+                <span className="font-mono text-[10px] text-text/25">
+                  {teamOwned}/{stickers.length}
+                </span>
+                <div className="w-14 h-0.5 bg-white/[0.05] rounded-full overflow-hidden shrink-0">
+                  <div
+                    className={`h-full rounded-full transition-all duration-500 ${complete ? "bg-lime" : "bg-gold/50"}`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-5 gap-1.5">
-              {stickers.map((s) => (
-                <StickerCard
-                  key={s.id}
-                  sticker={s}
-                  quantity={getQty(s.id)}
-                  onTap={() => handleTap(s)}
-                  onLongPress={() => setModal({ sticker: s, quantity: getQty(s.id) })}
-                />
-              ))}
-            </div>
-          </section>
-        );
-      })}
+              <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-5 gap-1.5">
+                {stickers.map((s) => (
+                  <StickerCard
+                    key={s.id}
+                    sticker={s}
+                    quantity={getQty(s.id)}
+                    onTap={() => handleTap(s)}
+                    onLongPress={() =>
+                      setModal({ sticker: s, quantity: getQty(s.id) })
+                    }
+                  />
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
 
       {/* Quantity modal */}
@@ -146,9 +169,15 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-5">
-              <p className="text-[9px] font-mono text-text/30 tracking-widest uppercase mb-1">Autocollant</p>
-              <h3 className="font-title font-bold text-xl text-lime tracking-wide">{modal.sticker.id}</h3>
-              <p className="text-xs text-text/50 mt-0.5">{modal.sticker.name}</p>
+              <p className="text-[9px] font-mono text-text/30  uppercase mb-1">
+                Autocollant
+              </p>
+              <h3 className="font-title font-bold text-xl text-lime ">
+                {modal.sticker.id}
+              </h3>
+              <p className="text-xs text-text/50 mt-0.5">
+                {modal.sticker.name}
+              </p>
             </div>
             <div className="flex items-center justify-center gap-5">
               <button
@@ -174,7 +203,9 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
                 onClick={() => {
                   const qty = modal.quantity + 1;
                   setModal({ ...modal, quantity: qty });
-                  setCollection((prev) => new Map(prev).set(modal.sticker.id, qty));
+                  setCollection((prev) =>
+                    new Map(prev).set(modal.sticker.id, qty),
+                  );
                   startTransition(() => upsertSticker(modal.sticker.id, 1));
                 }}
                 className="w-11 h-11 rounded-full bg-lime/10 border border-lime/30 text-xl text-lime flex items-center justify-center hover:bg-lime/18 transition-colors"
@@ -184,7 +215,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
             </div>
             <button
               onClick={() => setModal(null)}
-              className="mt-5 w-full text-[10px] font-title font-semibold tracking-widest uppercase text-text/25 hover:text-text/50 transition-colors"
+              className="mt-5 w-full text-[10px] font-title font-semibold  uppercase text-text/25 hover:text-text/50 transition-colors"
             >
               Fermer
             </button>

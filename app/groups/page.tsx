@@ -8,12 +8,12 @@ export default async function GroupsPage() {
   return (
     <main className="max-w-xl mx-auto px-4 py-5">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="font-title font-bold text-2xl tracking-widest text-text uppercase">
+        <h1 className="font-title font-bold text-2xl  text-text uppercase">
           Mes Groupes
         </h1>
         <Link
           href="/groups/join"
-          className="text-[10px] font-title font-bold tracking-widest uppercase border border-lime/20 text-lime/60 hover:text-lime hover:border-lime/45 px-3 py-2 rounded-lg transition-colors"
+          className="text-[10px] font-title font-bold  uppercase border border-lime/20 text-lime/60 hover:text-lime hover:border-lime/45 px-3 py-2 rounded-lg transition-colors"
         >
           + Rejoindre
         </Link>
@@ -21,10 +21,10 @@ export default async function GroupsPage() {
 
       {groups.length === 0 && (
         <div className="text-center py-14">
-          <p className="font-title tracking-wide uppercase text-text/22 text-sm mb-1.5">
+          <p className="font-title  uppercase text-text/22 text-sm mb-1.5">
             Aucun groupe pour l&apos;instant
           </p>
-          <p className="text-[10px] text-text/15 font-title tracking-widest uppercase">
+          <p className="text-[10px] text-text/15 font-title  uppercase">
             Créez ou rejoignez un groupe pour échanger
           </p>
         </div>
@@ -60,7 +60,7 @@ function CreateGroupForm() {
 
   return (
     <div className="border-t border-white/[0.06] pt-5">
-      <p className="text-[10px] font-title font-semibold tracking-widest uppercase text-text/28 mb-3">
+      <p className="text-[10px] font-title font-semibold  uppercase text-text/28 mb-3">
         Créer un groupe
       </p>
       <form action={action} className="flex gap-2">
@@ -72,7 +72,7 @@ function CreateGroupForm() {
         />
         <button
           type="submit"
-          className="bg-lime text-void font-title font-bold px-5 py-2.5 rounded-xl text-xs tracking-widest uppercase hover:opacity-90 transition-opacity"
+          className="bg-lime text-void font-title font-bold px-5 py-2.5 rounded-xl text-xs  uppercase hover:opacity-90 transition-opacity"
         >
           Créer
         </button>

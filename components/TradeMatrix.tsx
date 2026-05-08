@@ -13,7 +13,7 @@ export default function TradeMatrix({ pairs }: TradeMatrixProps) {
   if (pairs.length === 0) {
     return (
       <div className="text-center py-16">
-        <p className="font-title tracking-wide uppercase text-text/25 text-sm">
+        <p className="font-title  uppercase text-text/25 text-sm">
           Pas encore assez de membres
         </p>
       </div>
@@ -32,7 +32,7 @@ export default function TradeMatrix({ pairs }: TradeMatrixProps) {
               className="w-full border border-white/[0.07] bg-surface hover:border-lime/20 hover:bg-elevated rounded-xl p-4 text-left transition-all group"
             >
               <div className="flex justify-between items-center mb-2">
-                <span className="font-title font-bold text-sm text-text group-hover:text-lime/90 transition-colors tracking-wide">
+                <span className="font-title font-bold text-sm text-text group-hover:text-lime/90 transition-colors ">
                   {pair.userAName} ↔ {pair.userBName}
                 </span>
                 <span
@@ -44,15 +44,21 @@ export default function TradeMatrix({ pairs }: TradeMatrixProps) {
                 </span>
               </div>
               <div className="flex gap-4 text-[9px] font-mono text-text/28">
-                <span>↑ {pair.canGive.length} de {pair.userAName}</span>
-                <span>↑ {pair.canReceive.length} de {pair.userBName}</span>
+                <span>
+                  ↑ {pair.canGive.length} de {pair.userAName}
+                </span>
+                <span>
+                  ↑ {pair.canReceive.length} de {pair.userBName}
+                </span>
               </div>
             </button>
           );
         })}
       </div>
 
-      {selected && <TradeDetail pair={selected} onClose={() => setSelected(null)} />}
+      {selected && (
+        <TradeDetail pair={selected} onClose={() => setSelected(null)} />
+      )}
     </>
   );
 }

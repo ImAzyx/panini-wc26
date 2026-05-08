@@ -1,7 +1,10 @@
 "use client";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { bulkUpsertStickers, type BulkStickerEntry } from "@/lib/actions/collection";
+import {
+  bulkUpsertStickers,
+  type BulkStickerEntry,
+} from "@/lib/actions/collection";
 import { STICKERS } from "@/data/stickers";
 
 type BulkResult = {
@@ -13,7 +16,9 @@ type BulkResult = {
 const stickerAlbumIndex = new Map(STICKERS.map((s, i) => [s.id, i]));
 const sortByAlbum = (entries: BulkStickerEntry[]) =>
   [...entries].sort(
-    (a, b) => (stickerAlbumIndex.get(a.id) ?? 9999) - (stickerAlbumIndex.get(b.id) ?? 9999)
+    (a, b) =>
+      (stickerAlbumIndex.get(a.id) ?? 9999) -
+      (stickerAlbumIndex.get(b.id) ?? 9999),
   );
 
 function StickerBadge({
@@ -27,10 +32,12 @@ function StickerBadge({
   const colorMap = {
     lime: "text-lime bg-lime/10 border-lime/25",
     gold: "text-gold bg-gold/10 border-gold/25",
-    red:  "text-red/70 bg-red/10 border-red/25",
+    red: "text-red/70 bg-red/10 border-red/25",
   };
   return (
-    <span className={`relative inline-flex items-center font-mono text-[10px] font-bold border rounded px-1.5 py-0.5 ${colorMap[color]}`}>
+    <span
+      className={`relative inline-flex items-center font-mono text-[10px] font-bold border rounded px-1.5 py-0.5 ${colorMap[color]}`}
+    >
       {entry.id}
       {extras > 0 && (
         <span className="ml-1 text-[9px] opacity-60">×{entry.received}</span>
@@ -69,7 +76,7 @@ export default function BulkInput() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center justify-center gap-2 text-[10px] font-title font-semibold tracking-widest uppercase text-text/35 border border-white/[0.07] hover:border-lime/20 hover:text-lime/60 rounded-xl px-4 py-3 w-full transition-all"
+        className="flex items-center justify-center gap-2 text-[10px] font-title font-semibold  uppercase text-text/35 border border-white/[0.07] hover:border-lime/20 hover:text-lime/60 rounded-xl px-4 py-3 w-full transition-all"
       >
         <span className="text-sm font-light leading-none">+</span>
         Ajout en masse (codes)
@@ -78,17 +85,20 @@ export default function BulkInput() {
   }
 
   // compute extra counts for the summary hint
-  const newWithExtras  = result?.newStickers.filter((e) => e.received > 1) ?? [];
+  const newWithExtras = result?.newStickers.filter((e) => e.received > 1) ?? [];
   const totalNewExtras = newWithExtras.reduce((s, e) => s + e.received - 1, 0);
-  const totalOwnedExtras = result?.alreadyOwned.reduce((s, e) => s + e.received, 0) ?? 0;
+  const totalOwnedExtras =
+    result?.alreadyOwned.reduce((s, e) => s + e.received, 0) ?? 0;
 
   return (
     <div className="border border-white/[0.07] rounded-xl p-4 space-y-3 bg-surface">
       {!result ? (
         <>
-          <p className="text-[10px] font-title font-semibold tracking-widest uppercase text-text/35">
+          <p className="text-[10px] font-title font-semibold  uppercase text-text/35">
             Codes séparés par virgules ou espaces —{" "}
-            <code className="font-mono text-lime/60 tracking-normal normal-case">FRA1, ARG17, FWC4</code>
+            <code className="font-mono text-lime/60 normal-case">
+              FRA1, ARG17, FWC4
+            </code>
           </p>
           <textarea
             value={text}
@@ -101,7 +111,7 @@ export default function BulkInput() {
             <button
               onClick={handleSubmit}
               disabled={isPending || !text.trim()}
-              className="flex-1 bg-lime text-void font-title font-bold py-2.5 rounded-lg text-xs tracking-widest uppercase disabled:opacity-30 disabled:cursor-not-allowed transition-opacity"
+              className="flex-1 bg-lime text-void font-title font-bold py-2.5 rounded-lg text-xs  uppercase disabled:opacity-30 disabled:cursor-not-allowed transition-opacity"
             >
               {isPending ? "Ajout..." : "Ajouter"}
             </button>
@@ -115,7 +125,7 @@ export default function BulkInput() {
         </>
       ) : (
         <>
-          <div className="text-[10px] font-title font-semibold tracking-widest uppercase text-text/40">
+          <div className="text-[10px] font-title font-semibold  uppercase text-text/40">
             Résultat
           </div>
 
@@ -123,12 +133,14 @@ export default function BulkInput() {
           {result.newStickers.length > 0 && (
             <div className="rounded-lg border border-lime/20 bg-lime/5 p-3 space-y-2">
               <div className="flex items-baseline justify-between gap-2">
-                <p className="text-[9px] font-title font-semibold tracking-widest uppercase text-lime/70">
-                  ✓ {result.newStickers.length} nouveau{result.newStickers.length > 1 ? "x" : ""} — à coller
+                <p className="text-[9px] font-title font-semibold  uppercase text-lime/70">
+                  ✓ {result.newStickers.length} nouveau
+                  {result.newStickers.length > 1 ? "x" : ""} — à coller
                 </p>
                 {totalNewExtras > 0 && (
                   <p className="text-[9px] font-mono text-lime/40 shrink-0">
-                    +{totalNewExtras} extra{totalNewExtras > 1 ? "s" : ""} à garder
+                    +{totalNewExtras} extra{totalNewExtras > 1 ? "s" : ""} à
+                    garder
                   </p>
                 )}
               </div>
@@ -139,9 +151,12 @@ export default function BulkInput() {
               </div>
               {newWithExtras.length > 0 && (
                 <p className="text-[9px] font-mono text-lime/35 leading-relaxed">
-                  {newWithExtras.map((e) =>
-                    `${e.id} ×${e.received} → coller 1, garder ${e.received - 1} de côté`
-                  ).join(" · ")}
+                  {newWithExtras
+                    .map(
+                      (e) =>
+                        `${e.id} ×${e.received} → coller 1, garder ${e.received - 1} de côté`,
+                    )
+                    .join(" · ")}
                 </p>
               )}
             </div>
@@ -151,8 +166,9 @@ export default function BulkInput() {
           {result.alreadyOwned.length > 0 && (
             <div className="rounded-lg border border-gold/20 bg-gold/5 p-3 space-y-2">
               <div className="flex items-baseline justify-between gap-2">
-                <p className="text-[9px] font-title font-semibold tracking-widest uppercase text-gold/70">
-                  ↑ {result.alreadyOwned.length} déjà collé{result.alreadyOwned.length > 1 ? "s" : ""} — à garder de côté
+                <p className="text-[9px] font-title font-semibold  uppercase text-gold/70">
+                  ↑ {result.alreadyOwned.length} déjà collé
+                  {result.alreadyOwned.length > 1 ? "s" : ""} — à garder de côté
                 </p>
                 {totalOwnedExtras > 0 && (
                   <p className="text-[9px] font-mono text-gold/40 shrink-0">
@@ -171,12 +187,18 @@ export default function BulkInput() {
           {/* Invalides */}
           {result.invalid.length > 0 && (
             <div className="rounded-lg border border-red/20 bg-red/5 p-3 space-y-2">
-              <p className="text-[9px] font-title font-semibold tracking-widest uppercase text-red/60">
-                ✕ {result.invalid.length} code{result.invalid.length > 1 ? "s" : ""} invalide{result.invalid.length > 1 ? "s" : ""}
+              <p className="text-[9px] font-title font-semibold  uppercase text-red/60">
+                ✕ {result.invalid.length} code
+                {result.invalid.length > 1 ? "s" : ""} invalide
+                {result.invalid.length > 1 ? "s" : ""}
               </p>
               <div className="flex flex-wrap gap-1">
                 {result.invalid.map((id) => (
-                  <StickerBadge key={id} entry={{ id, received: 1 }} color="red" />
+                  <StickerBadge
+                    key={id}
+                    entry={{ id, received: 1 }}
+                    color="red"
+                  />
                 ))}
               </div>
             </div>
@@ -185,7 +207,7 @@ export default function BulkInput() {
           <div className="flex gap-2 pt-1">
             <button
               onClick={() => setResult(null)}
-              className="flex-1 bg-lime/10 border border-lime/25 text-lime font-title font-bold py-2.5 rounded-lg text-xs tracking-widest uppercase hover:bg-lime/15 transition-colors"
+              className="flex-1 bg-lime/10 border border-lime/25 text-lime font-title font-bold py-2.5 rounded-lg text-xs  uppercase hover:bg-lime/15 transition-colors"
             >
               Nouvel ajout
             </button>

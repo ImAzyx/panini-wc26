@@ -1,6 +1,11 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { STICKERS, STICKERS_BY_TEAM, TEAM_ORDER, ALBUM_STICKER_COUNT } from "@/data/stickers";
+import {
+  STICKERS,
+  STICKERS_BY_TEAM,
+  TEAM_ORDER,
+  ALBUM_STICKER_COUNT,
+} from "@/data/stickers";
 import ProgressBar from "@/components/ProgressBar";
 
 export default async function StatsPage() {
@@ -19,8 +24,9 @@ export default async function StatsPage() {
   const missing = ALBUM_STICKER_COUNT - owned;
   const totalPct = Math.round((owned / ALBUM_STICKER_COUNT) * 100);
 
-  const teamRows = TEAM_ORDER
-    .filter((t) => t !== "Intro" && t !== "FIFA Museum")
+  const teamRows = TEAM_ORDER.filter(
+    (t) => t !== "Intro" && t !== "FIFA Museum",
+  )
     .map((team) => {
       const stickers = STICKERS_BY_TEAM[team] ?? [];
       const teamOwned = stickers.filter((s) => collMap.has(s.id)).length;
@@ -31,7 +37,7 @@ export default async function StatsPage() {
 
   return (
     <main className="max-w-xl mx-auto px-4 py-5">
-      <h1 className="font-title font-bold text-2xl tracking-widest text-text uppercase mb-6">
+      <h1 className="font-title font-bold text-2xl  text-text uppercase mb-6">
         Statistiques
       </h1>
 
@@ -41,7 +47,7 @@ export default async function StatsPage() {
           <div className="font-mono font-bold text-3xl text-lime leading-none mb-1.5 tabular-nums">
             {owned}
           </div>
-          <div className="text-[9px] font-title font-semibold tracking-widest uppercase text-text/35">
+          <div className="text-[9px] font-title font-semibold  uppercase text-text/35">
             Collés
           </div>
         </div>
@@ -52,7 +58,7 @@ export default async function StatsPage() {
           <div className="font-mono text-xs text-gold/50 tabular-nums mb-1">
             {duplicatesPct}%
           </div>
-          <div className="text-[9px] font-title font-semibold tracking-widest uppercase text-text/35">
+          <div className="text-[9px] font-title font-semibold  uppercase text-text/35">
             Doubles
           </div>
         </div>
@@ -60,7 +66,7 @@ export default async function StatsPage() {
           <div className="font-mono font-bold text-3xl text-red leading-none mb-1.5 tabular-nums">
             {missing}
           </div>
-          <div className="text-[9px] font-title font-semibold tracking-widest uppercase text-text/35">
+          <div className="text-[9px] font-title font-semibold  uppercase text-text/35">
             Manquants
           </div>
         </div>
@@ -69,7 +75,7 @@ export default async function StatsPage() {
       {/* Total progress */}
       <div className="bg-surface border border-white/[0.07] rounded-xl p-5 mb-6">
         <div className="flex justify-between items-end mb-3">
-          <p className="text-[10px] font-title font-semibold tracking-widest uppercase text-text/35">
+          <p className="text-[10px] font-title font-semibold  uppercase text-text/35">
             Total
           </p>
           <p className="font-mono font-bold text-4xl text-lime leading-none tabular-nums">
@@ -82,7 +88,7 @@ export default async function StatsPage() {
       {/* Per-team – sorted by completion desc */}
       <div className="flex items-center gap-2.5 mb-3">
         <div className="w-0.5 h-5 rounded-full bg-white/15" />
-        <h2 className="text-[10px] font-title font-semibold tracking-widest uppercase text-text/35">
+        <h2 className="text-[10px] font-title font-semibold  uppercase text-text/35">
           Par équipe
         </h2>
       </div>
@@ -92,7 +98,12 @@ export default async function StatsPage() {
             key={team}
             className="bg-surface border border-white/[0.05] rounded-lg px-3 py-2"
           >
-            <ProgressBar current={teamOwned} total={total} label={team} size="sm" />
+            <ProgressBar
+              current={teamOwned}
+              total={total}
+              label={team}
+              size="sm"
+            />
           </div>
         ))}
       </div>

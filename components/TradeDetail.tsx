@@ -38,8 +38,10 @@ export default function TradeDetail({ pair, onClose }: TradeDetailProps) {
       >
         <div className="flex justify-between items-start mb-5">
           <div>
-            <p className="text-[9px] font-mono text-text/30 tracking-widest uppercase mb-0.5">Échange</p>
-            <h2 className="font-title font-bold text-lg text-text tracking-wide">
+            <p className="text-[9px] font-mono text-text/30  uppercase mb-0.5">
+              Échange
+            </p>
+            <h2 className="font-title font-bold text-lg text-text ">
               {pair.userAName} ↔ {pair.userBName}
             </h2>
           </div>
@@ -53,7 +55,7 @@ export default function TradeDetail({ pair, onClose }: TradeDetailProps) {
 
         <div className="grid grid-cols-2 gap-4 mb-5">
           <div>
-            <p className="flex items-center gap-1.5 text-[9px] font-title font-bold tracking-widest uppercase text-lime/65 mb-3">
+            <p className="flex items-center gap-1.5 text-[9px] font-title font-bold  uppercase text-lime/65 mb-3">
               <span className="w-0.5 h-3 bg-lime/50 rounded-full inline-block" />
               {pair.userAName} ({pair.canGive.length})
             </p>
@@ -66,14 +68,16 @@ export default function TradeDetail({ pair, onClose }: TradeDetailProps) {
                     <span className="font-mono text-[10px] font-bold text-lime/75 shrink-0 w-10">
                       {s.id}
                     </span>
-                    <span className="text-[10px] text-text/45 truncate leading-tight">{s.name}</span>
+                    <span className="text-[10px] text-text/45 truncate leading-tight">
+                      {s.name}
+                    </span>
                   </div>
                 ))
               )}
             </div>
           </div>
           <div>
-            <p className="flex items-center gap-1.5 text-[9px] font-title font-bold tracking-widest uppercase text-gold/65 mb-3">
+            <p className="flex items-center gap-1.5 text-[9px] font-title font-bold  uppercase text-gold/65 mb-3">
               <span className="w-0.5 h-3 bg-gold/50 rounded-full inline-block" />
               {pair.userBName} ({pair.canReceive.length})
             </p>
@@ -86,7 +90,9 @@ export default function TradeDetail({ pair, onClose }: TradeDetailProps) {
                     <span className="font-mono text-[10px] font-bold text-gold/75 shrink-0 w-10">
                       {s.id}
                     </span>
-                    <span className="text-[10px] text-text/45 truncate leading-tight">{s.name}</span>
+                    <span className="text-[10px] text-text/45 truncate leading-tight">
+                      {s.name}
+                    </span>
                   </div>
                 ))
               )}
@@ -96,7 +102,7 @@ export default function TradeDetail({ pair, onClose }: TradeDetailProps) {
 
         <button
           onClick={handleCopy}
-          className={`w-full font-title font-bold py-3 rounded-xl text-sm tracking-widest uppercase transition-all ${
+          className={`w-full font-title font-bold py-3 rounded-xl text-sm  uppercase transition-all ${
             copied
               ? "bg-lime/15 border border-lime/30 text-lime"
               : "bg-lime text-void hover:opacity-90"

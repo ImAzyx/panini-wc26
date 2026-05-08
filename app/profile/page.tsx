@@ -33,15 +33,17 @@ export default async function ProfilePage({
   return (
     <main className="max-w-sm mx-auto px-4 py-8">
       <div className="mb-8">
-        <p className="text-[9px] font-title font-semibold tracking-widest uppercase text-text/28 mb-0.5">
+        <p className="text-[9px] font-title font-semibold  uppercase text-text/28 mb-0.5">
           Compte
         </p>
-        <h1 className="font-title font-bold text-2xl tracking-widest text-text uppercase">Profil</h1>
+        <h1 className="font-title font-bold text-2xl  text-text uppercase">
+          Profil
+        </h1>
       </div>
 
       <form action={updateUsername} className="space-y-4 mb-8">
         <div>
-          <label className="block text-[9px] font-title font-semibold tracking-widest uppercase text-text/35 mb-2">
+          <label className="block text-[9px] font-title font-semibold  uppercase text-text/35 mb-2">
             Nom d&apos;utilisateur
           </label>
           <input
@@ -54,7 +56,7 @@ export default async function ProfilePage({
           />
         </div>
         <div>
-          <label className="block text-[9px] font-title font-semibold tracking-widest uppercase text-text/35 mb-2">
+          <label className="block text-[9px] font-title font-semibold  uppercase text-text/35 mb-2">
             Email
           </label>
           <input
@@ -68,7 +70,7 @@ export default async function ProfilePage({
         )}
         <button
           type="submit"
-          className="w-full bg-lime text-void font-title font-bold py-3 rounded-xl text-sm tracking-widest uppercase hover:opacity-90 transition-opacity"
+          className="w-full bg-lime text-void font-title font-bold py-3 rounded-xl text-sm  uppercase hover:opacity-90 transition-opacity"
         >
           Sauvegarder
         </button>
@@ -82,7 +84,7 @@ export default async function ProfilePage({
       >
         <button
           type="submit"
-          className="w-full border border-red/18 text-red/50 hover:text-red/70 hover:border-red/35 py-3 rounded-xl text-xs font-title font-semibold tracking-widest uppercase transition-colors"
+          className="w-full border border-red/18 text-red/50 hover:text-red/70 hover:border-red/35 py-3 rounded-xl text-xs font-title font-semibold  uppercase transition-colors"
         >
           Se déconnecter
         </button>

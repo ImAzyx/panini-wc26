@@ -39,8 +39,9 @@ export default function LoginPage() {
     return (
       <div className="text-center py-8">
         <p className="text-lime font-mono text-sm mb-1.5">✓ Lien envoyé</p>
-        <p className="text-text/35 text-xs font-title tracking-wide">
-          Vérifiez <strong className="text-text/55 font-semibold">{email}</strong>
+        <p className="text-text/35 text-xs font-title ">
+          Vérifiez{" "}
+          <strong className="text-text/55 font-semibold">{email}</strong>
         </p>
       </div>
     );
@@ -50,7 +51,7 @@ export default function LoginPage() {
     <div className="space-y-5">
       <form onSubmit={handleCredentials} className="space-y-4">
         <div>
-          <label className="block text-[9px] font-title font-semibold tracking-widest uppercase text-text/35 mb-2">
+          <label className="block text-[9px] font-title font-semibold  uppercase text-text/35 mb-2">
             Email
           </label>
           <input
@@ -62,7 +63,7 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          <label className="block text-[9px] font-title font-semibold tracking-widest uppercase text-text/35 mb-2">
+          <label className="block text-[9px] font-title font-semibold  uppercase text-text/35 mb-2">
             Mot de passe
           </label>
           <input
@@ -77,7 +78,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-lime text-void font-title font-bold py-3.5 rounded-xl text-sm tracking-widest uppercase disabled:opacity-35 hover:opacity-90 transition-opacity"
+          className="w-full bg-lime text-void font-title font-bold py-3.5 rounded-xl text-sm  uppercase disabled:opacity-35 hover:opacity-90 transition-opacity"
         >
           {loading ? "Connexion..." : "Se connecter"}
         </button>
@@ -85,7 +86,9 @@ export default function LoginPage() {
 
       <div className="relative flex items-center">
         <div className="flex-1 border-t border-white/[0.07]" />
-        <span className="px-3 text-[9px] font-title tracking-widest uppercase text-text/22">ou</span>
+        <span className="px-3 text-[9px] font-title  uppercase text-text/22">
+          ou
+        </span>
         <div className="flex-1 border-t border-white/[0.07]" />
       </div>
 
@@ -93,15 +96,18 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading || !email}
-          className="w-full border border-white/[0.09] hover:border-lime/20 text-text/45 hover:text-lime/65 font-title font-bold py-3.5 rounded-xl text-sm tracking-widest uppercase disabled:opacity-28 transition-all"
+          className="w-full border border-white/[0.09] hover:border-lime/20 text-text/45 hover:text-lime/65 font-title font-bold py-3.5 rounded-xl text-sm  uppercase disabled:opacity-28 transition-all"
         >
           Lien magique par email
         </button>
       </form>
 
-      <p className="text-center text-[10px] font-title tracking-widest uppercase text-text/28">
+      <p className="text-center text-[10px] font-title  uppercase text-text/28">
         Pas de compte ?{" "}
-        <Link href="/auth/register" className="text-lime/65 hover:text-lime transition-colors">
+        <Link
+          href="/auth/register"
+          className="text-lime/65 hover:text-lime transition-colors"
+        >
           S&apos;inscrire
         </Link>
       </p>
