@@ -48,17 +48,15 @@ export default async function GroupPage({
       </div>
       <div className="space-y-2">
         {group.memberStats.map((m) => (
-          <div
+          <Link
             key={m.userId}
-            className="border border-white/[0.07] rounded-xl p-4 bg-surface"
+            href={`/groups/${group.id}/members/${m.userId}`}
+            className="block border border-white/[0.07] rounded-xl p-4 bg-surface hover:border-white/[0.15] hover:bg-elevated transition-all"
           >
             <div className="flex justify-between items-center mb-2.5">
-              <Link
-                href={`/groups/${group.id}/members/${m.userId}`}
-                className="font-title font-bold text-sm text-text hover:text-lime transition-colors"
-              >
+              <span className="font-title font-bold text-sm text-text">
                 {m.username}
-              </Link>
+              </span>
               <span className="font-mono text-[10px] text-text/32">
                 {m.collectionCount}
                 <span className="text-text/18">/{STICKERS.length}</span>
@@ -69,7 +67,7 @@ export default async function GroupPage({
               total={STICKERS.length}
               size="sm"
             />
-          </div>
+          </Link>
         ))}
       </div>
     </main>
