@@ -16,6 +16,10 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
   const [collection, setCollection] = useState<Map<string, number>>(
     () => new Map(initialCollection.map((e) => [e.stickerId, e.quantity]))
   );
+
+  useEffect(() => {
+    setCollection(new Map(initialCollection.map((e) => [e.stickerId, e.quantity])));
+  }, [initialCollection]);
   const [modal, setModal] = useState<ModalState>(null);
   const [, startTransition] = useTransition();
 
@@ -87,7 +91,8 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
         </div>
       </div>
 
-      {/* Team sections */}
+      {/* Team sections – 2 columns on desktop */}
+      <div className="md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-8 md:items-start space-y-8 md:space-y-0">
       {TEAM_ORDER.map((team) => {
         const stickers = STICKERS_BY_TEAM[team];
         if (!stickers?.length) return null;
@@ -113,7 +118,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-10 gap-1.5">
+            <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-5 gap-1.5">
               {stickers.map((s) => (
                 <StickerCard
                   key={s.id}
@@ -127,6 +132,7 @@ export default function StickerGrid({ initialCollection }: StickerGridProps) {
           </section>
         );
       })}
+      </div>
 
       {/* Quantity modal */}
       {modal && (

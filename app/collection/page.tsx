@@ -6,7 +6,7 @@ export default async function CollectionPage() {
   const collection = await getCollection();
 
   return (
-    <main className="max-w-4xl mx-auto px-3 py-5">
+    <main className="max-w-6xl mx-auto px-3 py-5">
       <div className="flex items-baseline justify-between mb-5">
         <h1 className="font-title font-bold text-2xl tracking-widest text-text uppercase">
           Ma Collection
