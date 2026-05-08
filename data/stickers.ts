@@ -19,7 +19,7 @@ const TEAMS: { code: string; name: string }[] = [
   { code: "AUS", name: "Australie" },
   { code: "TUR", name: "Turquie" },
   { code: "GER", name: "Allemagne" },
-  { code: "CUR", name: "Curaçao" },
+  { code: "CUW", name: "Curaçao" },
   { code: "CIV", name: "Côte d'Ivoire" },
   { code: "ECU", name: "Équateur" },
   { code: "NED", name: "Pays-Bas" },
